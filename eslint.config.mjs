@@ -16,7 +16,7 @@ const eslintConfig = [
     rules: {
       "@typescript-eslint/no-explicit-any": "off", // Disable the rule
       
-      'global-require': 'off', // For JavaScript projects
+      
       '@typescript-eslint/no-require-imports': 'off',
     },
   },
