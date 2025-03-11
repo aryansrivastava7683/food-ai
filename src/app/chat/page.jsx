@@ -37,10 +37,19 @@ export default function Chat() {
     ]);
 
     try {
+      /*
       const response = await fetch("http://134.209.159.121:8000/predict/", {
         method: "POST",
         body: formData,
+        */
+        const response = await fetch("../api/proxy", {
+          method: "POST",
+          body: formData,
+        
+        
       });
+
+      
 
       const data = await response.json();
 
