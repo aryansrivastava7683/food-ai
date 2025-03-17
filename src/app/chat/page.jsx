@@ -61,8 +61,8 @@ export default function Chat() {
         ]);
 
         
-        //const geminiResponse = await geminiRes(foodName);
-         const geminiResponse = await geminiRes(imageUrl);
+        const geminiResponse = await geminiRes(foodName);
+      //const geminiResponse = await geminiRes(imageUrl);
         setMessages((prev) => [
           ...prev,
           { sender: "bot", text: geminiResponse, image: null },
