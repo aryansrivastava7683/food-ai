@@ -60,8 +60,9 @@ export default function Chat() {
           { sender: "bot", text: `Prediction: ${foodName}`, image: null },
         ]);
 
-        // Fetch recipe and calorie info using geminiRes
-        const geminiResponse = await geminiRes(foodName);
+        
+        //const geminiResponse = await geminiRes(foodName);
+         const geminiResponse = await geminiRes(imageUrl);
         setMessages((prev) => [
           ...prev,
           { sender: "bot", text: geminiResponse, image: null },
