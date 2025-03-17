@@ -10,7 +10,7 @@ export async function geminiRes(foodName) {
    
     
 
-    const prePrompt = `Tell me the origin of ${foodName}. What's the taste of it and what is it usually made of in under 30 words`;
+    const prePrompt = `Tell me the ingredients of ${foodName}. What's the taste of it and what do we eat with it usually ,in under 30 words`;
     
 
      try {
