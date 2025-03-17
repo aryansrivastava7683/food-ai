@@ -22,17 +22,15 @@ export default function Home() {
     });
   }, []);
 
-  const handleInstall = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult: any) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("App installed");
-        } else {
-          console.log("App installation dismissed");
-        }
-        setDeferredPrompt(null);
-      });
+  const handleDownload = () => {
+    const apkUrl = "/app-release.apk"; // File path inside the public folder
+    const link = document.createElement("a");
+    link.href = apkUrl;
+    link.download = "myapp.apk"; // Forces download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
     } else {
       alert("Install not available");
     }
@@ -52,7 +50,7 @@ export default function Home() {
         <h1 className="font-bold text-2xl">Welcome to Food Track</h1>
         <div className="flex gap-4">
           <button
-            onClick={handleInstall}
+            onClick={handleDownload}
             className="bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded text-white"
           >
             Install App
