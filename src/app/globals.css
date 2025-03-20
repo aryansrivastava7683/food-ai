@@ -39,21 +39,12 @@ body {
 
 /* global.css */
 
-.login-container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(
-      circle at var(--x, 80%) var(--y, 80%), 
-      rgba(244, 234, 234, 0.233), 
-      rgba(0, 0, 0, 0.9)
-  );
-  transition: background 0.1s ease;
-}
+
 
 .login-title {
   font-size: 2rem;
   color: #ffffff;
   z-index: 1;
 }
+
+

@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation' // Import useRouter for redirection
 
 export default function Login () {
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
+  // const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
 
-  const handleMouseMove = e => {
-    const x = (e.clientX / window.innerWidth) * 100
-    const y = (e.clientY / window.innerHeight) * 100
-    setMousePos({ x, y })
-  }
+  // const handleMouseMove = e => {
+  //   const x = (e.clientX / window.innerWidth) * 100
+  //   const y = (e.clientY / window.innerHeight) * 100
+  //   setMousePos({ x, y })
+  //}
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -41,15 +41,9 @@ export default function Login () {
   return (
     <>
       {/* <div className="flex justify-center items-center bg-black min-h-screen"> */}
-      <div
-        className='login-container'
-        onMouseMove={handleMouseMove}
-        style={{
-          '--x': `${mousePos.x}%`,
-          '--y': `${mousePos.y}%`
-        }}
-      >
-        <div className='bg-gray-300 shadow-md p-6 rounded-lg w-full max-w-md'>
+      <div className="flex justify-center items-center bg-[url('/bg.jpg')] bg-repeat min-h-screen login-container">
+
+        <div className='bg-white shadow-md p-6 rounded-lg w-full max-w-md'>
           <h2 className='mb-4 font-semibold text-blue-500 text-2xl text-center'>
             Login
           </h2>

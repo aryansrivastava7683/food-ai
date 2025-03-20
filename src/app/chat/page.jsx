@@ -1,40 +1,44 @@
-"use client";
-import { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
-import { geminiRes } from "./gemini";
+'use client'
+import { useEffect, useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import { geminiRes } from './gemini'
 
-export default function Chat() {
+export default function Chat () {
   const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hello, I am a Food Identifying bot :D", image: null },
-  ]);
-  const router = useRouter();
-  const chatRef = useRef(null);
+    {
+      sender: 'bot',
+      text: 'Hello, I am a Food recognizing machine :D',
+      image: null
+    }
+  ])
+  const router = useRouter()
+  const chatRef = useRef(null)
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token')
     if (!token) {
-      router.push("/login");
+      router.push('/login')
     }
-  }, [router]);
+  }, [router])
 
   useEffect(() => {
     if (chatRef.current) {
-      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+      chatRef.current.scrollTop = chatRef.current.scrollHeight
     }
-  }, [messages]);
+  }, [messages])
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const handleImageUpload = async e => {
+    const file = e.target.files[0]
+    if (!file) return
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const formData = new FormData()
+    formData.append('file', file)
 
-    const imageUrl = URL.createObjectURL(file);
-    setMessages((prev) => [
+    const imageUrl = URL.createObjectURL(file)
+    setMessages(prev => [
       ...prev,
-      { sender: "user", text: "Uploading image...", image: imageUrl },
-    ]);
+      { sender: 'user', text: 'Uploading image...', image: imageUrl }
+    ])
 
     try {
       /*
@@ -42,75 +46,80 @@ export default function Chat() {
         method: "POST",
         body: formData,
         */
-        const response = await fetch("../api/proxy", {
-          method: "POST",
-          body: formData,
-        
-        
-      });
+      const response = await fetch('../api/proxy', {
+        method: 'POST',
+        body: formData
+      })
 
-      
-
-      const data = await response.json();
+      const data = await response.json()
 
       if (response.ok) {
-        const foodName = data.prediction;
-        setMessages((prev) => [
+        const foodName = data.prediction
+        setMessages(prev => [
           ...prev,
-          { sender: "bot", text: `Prediction: ${foodName}`, image: null },
-        ]);
+          { sender: 'bot', text: `Prediction: ${foodName}`, image: null }
+        ])
 
-        
-        const geminiResponse = await geminiRes(foodName);
-      //const geminiResponse = await geminiRes(imageUrl);
-        setMessages((prev) => [
+        const geminiResponse = await geminiRes(foodName)
+        //const geminiResponse = await geminiRes(imageUrl);
+        setMessages(prev => [
           ...prev,
-          { sender: "bot", text: geminiResponse, image: null },
-        ]);
+          { sender: 'bot', text: geminiResponse, image: null }
+        ])
       } else {
-        setMessages((prev) => [
+        setMessages(prev => [
           ...prev,
-          { sender: "bot", text: `Error: ${data.detail || "Unable to identify food"}`, image: null },
-        ]);
+          {
+            sender: 'bot',
+            text: `Error: ${data.detail || 'Unable to identify food'}`,
+            image: null
+          }
+        ])
       }
     } catch (error) {
-      console.error("Error:", error);
-      setMessages((prev) => [
+      console.error('Error:', error)
+      setMessages(prev => [
         ...prev,
-        { sender: "bot", text: "Failed to reach server. Please try again later.", image: null },
-      ]);
+        {
+          sender: 'bot',
+          text: 'Failed to reach server. Please try again later.',
+          image: null
+        }
+      ])
     }
-  };
+  }
 
   return (
-    <div className="flex flex-col bg-gray-900 h-screen text-white">
-      <div className="bg-gray-800 shadow-lg p-4 font-semibold text-xl text-center">
-        AI Food Identifier
+    <div className='flex flex-col bg-gray-900 h-screen text-white'>
+      <div className="bg-[length:400px_400px] bg-[url('/navBar.jpg')] bg-repeat shadow-lg p-4 font-semibold text-xl text-center">
+        <a className='bg-black p-4 rounded-2xl'>AI Food Recognizer</a>
       </div>
 
       <div
         ref={chatRef}
-        className="flex-1 space-y-4 mx-auto p-4 md:w-1/2 overflow-y-auto font-comic scrollbar-hide"
+        className='flex-1 space-y-4 mx-auto p-4 md:w-1/2 overflow-y-auto font-comic scrollbar-hide'
       >
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+            className={`flex ${
+              msg.sender === 'user' ? 'justify-end' : 'justify-start'
+            }`}
           >
             <div
               className={`p-3 rounded-lg max-w-xs md:max-w-sm ${
-                msg.sender === "user"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-700 text-white"
+                msg.sender === 'user'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-700 text-white'
               }`}
             >
-              {msg.sender === "user" ? "You:" : "AI:"}
+              {msg.sender === 'user' ? 'You:' : 'Food Buddy:'}
               {msg.text && <p>{msg.text}</p>}
               {msg.image && (
                 <img
                   src={msg.image}
-                  alt="Uploaded"
-                  className="mt-2 rounded-lg w-40"
+                  alt='Uploaded'
+                  className='mt-2 rounded-lg w-40'
                   onLoad={() => URL.revokeObjectURL(msg.image)}
                 />
               )}
@@ -119,21 +128,28 @@ export default function Chat() {
         ))}
       </div>
 
-      <div className="flex justify-between items-center bg-gray-800 p-4">
+      <div className="flex justify-between items-center bg-[length:400px_400px] bg-[url('/navBar.jpg')] bg-repeat p-4">
         <label
-          htmlFor="imageUpload"
-          className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg text-white cursor-pointer"
+          htmlFor='imageUpload'
+          className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg text-white cursor-pointer'
         >
           Upload Image
         </label>
         <input
-          id="imageUpload"
-          type="file"
-          accept="image/*"
+          id='imageUpload'
+          type='file'
+          accept='image/*'
           onChange={handleImageUpload}
-          className="hidden"
+          className='hidden'
         />
+
+        <button
+          onClick={() => router.push('/about')}
+          className='bg-green-500 hover:bg-green-700 px-4 py-2 rounded text-white'
+        >
+          About
+        </button>
       </div>
     </div>
-  );
+  )
 }
