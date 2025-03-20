@@ -7,7 +7,7 @@ export default function About () {
   
 
   return (
-    <div>
+    <div className='bg-black text-white'>
       <div className='mx-auto mt-4 p-4 navBar'>
         <button
           onClick={() => router.push('/chat')}
