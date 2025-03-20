@@ -1,9 +1,10 @@
 'use client'
-import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function About () {
   const router = useRouter()
+
+  
 
   return (
     <div>
@@ -19,7 +20,7 @@ export default function About () {
         <h1 className='font-bold text-4xl text-center'>About</h1>
         <p className='mt-4 text-lg'>
           This is a simple chat application built to identify a list of foods
-          from given list =
+          from given list:
         </p>
 
         <ol className='justify-around md:p-4 py-4 md:pl-8 list-decimal list-inside'>
@@ -40,6 +41,8 @@ export default function About () {
         </ol>
 
         <p> Made by - Aryan Srivastava | Keshav Raj | Suhail | Ankit Kumar | Jatin </p>
+
+        
       </div>
     </div>
   )

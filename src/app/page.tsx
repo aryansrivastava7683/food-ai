@@ -5,8 +5,16 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function Home() {
+
+
+
   const router = useRouter();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  const handleDownload = () => {
+    const apkUrl = 'https://drive.google.com/uc?export=download&id=1UTXvlFo4hkgq5deIv-8LQNnfi0iQdSbn'
+    window.location.href = apkUrl
+  }
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -42,6 +50,12 @@ export default function Home() {
             className="bg-green-500 hover:bg-green-700 px-4 py-2 rounded text-white"
           >
             Login
+          </button>
+          <button
+            onClick={handleDownload}
+            className='bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded text-white'
+          >
+            Download APK
           </button>
         </div>
       </main>
